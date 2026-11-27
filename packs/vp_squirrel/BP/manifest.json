@@ -1,0 +1,47 @@
+{
+    "format_version": 2,
+    "header": {
+        "name": "vp_squirrel BP",
+        "description": "Squirrel foliage polish: leaves rustle and fall when a squirrel pops back out of the canopy.",
+        "uuid": "23af8825-709d-43ac-abbc-62780d129874",
+        "version": [
+            1,
+            0,
+            0
+        ],
+        "min_engine_version": [
+            1,
+            26,
+            60
+        ]
+    },
+    "modules": [
+        {
+            "type": "data",
+            "description": "vp_squirrel BP",
+            "uuid": "ca17d5ba-25eb-4371-884a-2fc5b6f0d9c5",
+            "version": [
+                1,
+                0,
+                0
+            ]
+        },
+        {
+            "type": "script",
+            "language": "javascript",
+            "uuid": "43d517a2-c319-4cba-9673-fea532952581",
+            "entry": "scripts/main.js",
+            "version": [
+                1,
+                0,
+                0
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "module_name": "@minecraft/server",
+            "version": "2.11.0"
+        }
+    ]
+}

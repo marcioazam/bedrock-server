@@ -1,0 +1,116 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.vp.dragonfly_egg_mass.idle": {
+      "loop": true,
+      "animation_length": 3.0,
+      "bones": {
+        "root": {
+          "scale": [
+            "1 + v.water * (0.018 * math.sin(120 * q.life_time))",
+            "1 - 2 * v.water * (0.018 * math.sin(120 * q.life_time))",
+            "1 + v.water * (0.018 * math.sin(120 * q.life_time))"
+          ]
+        }
+      }
+    },
+    "animation.vp.dragonfly_egg_mass.move": {
+      "loop": true,
+      "animation_length": 1.0,
+      "bones": {
+        "root": {
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.vp.dragonfly_egg_mass.hurt": {
+      "animation_length": 0.35,
+      "bones": {
+        "root": {
+          "scale": {
+            "0.0": {
+              "post": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "lerp_mode": "catmullrom"
+            },
+            "0.0833": {
+              "post": [
+                1.035,
+                0.93,
+                1.035
+              ],
+              "lerp_mode": "catmullrom"
+            },
+            "0.2083": {
+              "post": [
+                0.985,
+                1.025,
+                0.985
+              ],
+              "lerp_mode": "catmullrom"
+            },
+            "0.35": {
+              "post": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "lerp_mode": "catmullrom"
+            }
+          }
+        }
+      }
+    },
+    "animation.vp.dragonfly_egg_mass.death": {
+      "loop": "hold_on_last_frame",
+      "animation_length": 0.2,
+      "bones": {
+        "root": {
+          "rotation": {
+            "0.0": {
+              "post": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "lerp_mode": "catmullrom"
+            },
+            "0.2": {
+              "post": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "lerp_mode": "catmullrom"
+            }
+          },
+          "scale": {
+            "0.0": {
+              "post": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "lerp_mode": "catmullrom"
+            },
+            "0.2": {
+              "post": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "lerp_mode": "catmullrom"
+            }
+          }
+        }
+      }
+    }
+  }
+}

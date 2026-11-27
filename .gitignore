@@ -1,0 +1,27 @@
+# Dependências e artefatos de build
+node_modules/
+dist/
+out/
+*.tsbuildinfo
+
+# Python e caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.cache/
+
+# Logs, temporários e sistema
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Dados locais, mundos, backups e segredos
+worlds/
+backups/
+*.mcworld
+*.zip
+.env
+.env.*
+*.pem
+*.key

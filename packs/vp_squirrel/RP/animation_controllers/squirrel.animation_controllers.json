@@ -1,0 +1,453 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.vp.squirrel.root": {
+      "initial_state": "alive",
+      "states": {
+        "alive": {
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "animations": [
+            "posture",
+            {
+              "look": "v.look"
+            },
+            "flinch",
+            "blinking",
+            "fidget"
+          ],
+          "transitions": [
+            {
+              "dead": "!q.is_alive"
+            }
+          ]
+        },
+        "dead": {
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "animations": [
+            "death",
+            "eyes_shut"
+          ],
+          "transitions": [
+            {
+              "alive": "q.is_alive"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.vp.squirrel.blinking": {
+      "initial_state": "open",
+      "states": {
+        "open": {
+          "blend_transition": 0.05,
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "blink": "q.state_time > v.blink_wait && v.near"
+            }
+          ],
+          "on_entry": [
+            "v.blink_wait = math.random(2, 6);"
+          ]
+        },
+        "blink": {
+          "blend_transition": 0.05,
+          "blend_via_shortest_path": true,
+          "animations": [
+            "blink"
+          ],
+          "transitions": [
+            {
+              "open": "q.any_animation_finished"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.vp.squirrel.posture": {
+      "initial_state": "ground",
+      "states": {
+        "ground": {
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "animations": [
+            "idle"
+          ],
+          "transitions": [
+            {
+              "climb": "q.is_wall_climbing"
+            },
+            {
+              "swim": "q.is_in_water"
+            },
+            {
+              "eat": "q.is_eating"
+            },
+            {
+              "air": "!q.is_on_ground && q.vertical_speed <= 0"
+            },
+            {
+              "takeoff": "!q.is_on_ground"
+            },
+            {
+              "walk": "q.modified_move_speed > 0.3"
+            }
+          ]
+        },
+        "walk": {
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "animations": [
+            "walk"
+          ],
+          "transitions": [
+            {
+              "climb": "q.is_wall_climbing"
+            },
+            {
+              "swim": "q.is_in_water"
+            },
+            {
+              "air": "!q.is_on_ground && q.vertical_speed <= 0"
+            },
+            {
+              "takeoff": "!q.is_on_ground"
+            },
+            {
+              "run": "q.modified_move_speed > 0.66"
+            },
+            {
+              "ground": "q.modified_move_speed <= 0.15"
+            }
+          ]
+        },
+        "run": {
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "animations": [
+            "run"
+          ],
+          "transitions": [
+            {
+              "climb": "q.is_wall_climbing"
+            },
+            {
+              "swim": "q.is_in_water"
+            },
+            {
+              "air": "!q.is_on_ground && q.vertical_speed <= 0"
+            },
+            {
+              "takeoff": "!q.is_on_ground"
+            },
+            {
+              "walk": "q.modified_move_speed <= 0.5"
+            }
+          ]
+        },
+        "takeoff": {
+          "blend_transition": 0.08,
+          "blend_via_shortest_path": true,
+          "animations": [
+            "takeoff"
+          ],
+          "transitions": [
+            {
+              "climb": "q.is_wall_climbing"
+            },
+            {
+              "swim": "q.is_in_water"
+            },
+            {
+              "land": "q.is_on_ground"
+            },
+            {
+              "air": "q.state_time >= 0.38333333333333336"
+            }
+          ]
+        },
+        "air": {
+          "blend_transition": 0.12,
+          "blend_via_shortest_path": true,
+          "animations": [
+            "air"
+          ],
+          "transitions": [
+            {
+              "climb": "q.is_wall_climbing"
+            },
+            {
+              "swim": "q.is_in_water"
+            },
+            {
+              "land": "q.is_on_ground"
+            }
+          ]
+        },
+        "land": {
+          "blend_transition": 0.07,
+          "blend_via_shortest_path": true,
+          "animations": [
+            "land"
+          ],
+          "transitions": [
+            {
+              "climb": "q.is_wall_climbing"
+            },
+            {
+              "swim": "q.is_in_water"
+            },
+            {
+              "air": "!q.is_on_ground && q.vertical_speed <= 0"
+            },
+            {
+              "takeoff": "!q.is_on_ground"
+            },
+            {
+              "ground": "q.state_time >= 0.2833333333333333"
+            }
+          ]
+        },
+        "climb": {
+          "blend_transition": 0.15,
+          "blend_via_shortest_path": true,
+          "animations": [
+            "climb"
+          ],
+          "transitions": [
+            {
+              "ground": "!q.is_wall_climbing"
+            },
+            {
+              "gnaw": "q.state_time > 0.3 && math.abs(q.vertical_speed) < 0.05"
+            },
+            {
+              "climb_down": "q.vertical_speed < -0.05"
+            }
+          ]
+        },
+        "climb_down": {
+          "blend_transition": 0.15,
+          "blend_via_shortest_path": true,
+          "animations": [
+            "climb_down"
+          ],
+          "transitions": [
+            {
+              "ground": "!q.is_wall_climbing"
+            },
+            {
+              "gnaw": "q.state_time > 0.3 && math.abs(q.vertical_speed) < 0.05"
+            },
+            {
+              "climb": "q.vertical_speed > 0.05"
+            }
+          ]
+        },
+        "gnaw": {
+          "blend_transition": 0.15,
+          "blend_via_shortest_path": true,
+          "animations": [
+            "gnaw"
+          ],
+          "transitions": [
+            {
+              "ground": "!q.is_wall_climbing"
+            },
+            {
+              "climb": "q.vertical_speed >= 0.05"
+            },
+            {
+              "climb_down": "q.vertical_speed <= -0.05"
+            }
+          ]
+        },
+        "swim": {
+          "blend_transition": 0.15,
+          "blend_via_shortest_path": true,
+          "animations": [
+            "swim"
+          ],
+          "transitions": [
+            {
+              "air": "!q.is_in_water && !q.is_on_ground"
+            },
+            {
+              "ground": "!q.is_in_water"
+            }
+          ]
+        },
+        "eat": {
+          "blend_transition": 0.15,
+          "blend_via_shortest_path": true,
+          "animations": [
+            "eat"
+          ],
+          "transitions": [
+            {
+              "ground": "!q.is_eating"
+            },
+            {
+              "takeoff": "!q.is_on_ground"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.vp.squirrel.fidget": {
+      "initial_state": "off",
+      "states": {
+        "off": {
+          "transitions": [
+            {
+              "idle_wait": "q.is_on_ground && q.modified_move_speed <= 0.05"
+            }
+          ]
+        },
+        "idle_wait": {
+          "on_entry": [
+            "v.idle_pick = math.random_integer(0, 3);",
+            "v.idle_wait = math.random(1.5, 6);"
+          ],
+          "transitions": [
+            {
+              "off": "!q.is_on_ground || q.modified_move_speed > 0.05"
+            },
+            {
+              "idle_0": "v.idle_pick == 0 && q.state_time > v.idle_wait"
+            },
+            {
+              "idle_1": "v.idle_pick == 1 && q.state_time > v.idle_wait"
+            },
+            {
+              "idle_2": "v.idle_pick == 2 && q.state_time > v.idle_wait"
+            },
+            {
+              "idle_3": "v.idle_pick == 3 && q.state_time > v.idle_wait"
+            }
+          ]
+        },
+        "idle_0": {
+          "animations": [
+            "idle_groom"
+          ],
+          "blend_transition": 0.24,
+          "transitions": [
+            {
+              "off": "!q.is_on_ground || q.modified_move_speed > 0.05"
+            },
+            {
+              "idle_wait": "q.any_animation_finished"
+            }
+          ]
+        },
+        "idle_1": {
+          "animations": [
+            "idle_alert"
+          ],
+          "blend_transition": 0.24,
+          "transitions": [
+            {
+              "off": "!q.is_on_ground || q.modified_move_speed > 0.05"
+            },
+            {
+              "idle_wait": "q.any_animation_finished"
+            }
+          ]
+        },
+        "idle_2": {
+          "animations": [
+            "idle_flick"
+          ],
+          "blend_transition": 0.24,
+          "transitions": [
+            {
+              "off": "!q.is_on_ground || q.modified_move_speed > 0.05"
+            },
+            {
+              "idle_wait": "q.any_animation_finished"
+            }
+          ]
+        },
+        "idle_3": {
+          "animations": [
+            "idle_sniff"
+          ],
+          "blend_transition": 0.24,
+          "transitions": [
+            {
+              "off": "!q.is_on_ground || q.modified_move_speed > 0.05"
+            },
+            {
+              "idle_wait": "q.any_animation_finished"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.vp.squirrel.flinch": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "blend_transition": 0.18,
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "hurt": "q.hurt_time > 0 && q.is_alive"
+            }
+          ]
+        },
+        "hurt": {
+          "blend_transition": 0.05,
+          "blend_via_shortest_path": true,
+          "animations": [
+            "hurt",
+            "blink"
+          ],
+          "transitions": [
+            {
+              "default": "q.state_time >= 0.5 && q.hurt_time <= 0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

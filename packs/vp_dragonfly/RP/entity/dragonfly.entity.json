@@ -1,0 +1,79 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "5fs_br:dragonfly",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "blue_dragonfly": "textures/entity/vp/dragonfly/blue_dragonfly",
+        "green_dragonfly": "textures/entity/vp/dragonfly/green_dragonfly",
+        "orange_dragonfly": "textures/entity/vp/dragonfly/orange_dragonfly",
+        "red_dragonfly": "textures/entity/vp/dragonfly/red_dragonfly"
+      },
+      "geometry": {
+        "default": "geometry.vp.dragonfly"
+      },
+      "animations": {
+        "idle": "animation.vp.dragonfly.idle",
+        "idle_groom": "animation.vp.dragonfly.idle_groom",
+        "idle_twitch": "animation.vp.dragonfly.idle_twitch",
+        "walk": "animation.vp.dragonfly.walk",
+        "air": "animation.vp.dragonfly.air",
+        "takeoff": "animation.vp.dragonfly.takeoff",
+        "land": "animation.vp.dragonfly.land",
+        "wings": "animation.vp.dragonfly.wings",
+        "look": "animation.vp.dragonfly.look",
+        "spawn": "animation.vp.dragonfly.spawn",
+        "hurt": "animation.vp.dragonfly.hurt",
+        "death": "animation.vp.dragonfly.death",
+        "blink": "animation.vp.dragonfly.blink",
+        "eyes_shut": "animation.vp.dragonfly.eyes_shut",
+        "root": "controller.animation.vp.dragonfly.root",
+        "posture": "controller.animation.vp.dragonfly.posture",
+        "flinch": "controller.animation.vp.dragonfly.flinch",
+        "blinking": "controller.animation.vp.dragonfly.blinking",
+        "spawning": "controller.animation.vp.dragonfly.spawning",
+        "fidget": "controller.animation.vp.dragonfly.fidget"
+      },
+      "scripts": {
+        "initialize": [
+          "v.air = 0;",
+          "v.pitch = 0;",
+          "v.speed = 0;",
+          "v.sway = 1;",
+          "v.dead = 0;",
+          "v.blink_wait = 3;",
+          "v.bank = 0;",
+          "v.dyaw = 0;",
+          "v.yaw_last = q.body_y_rotation;",
+          "v.sdt = 0.0167;",
+          "v.look = 0;"
+        ],
+        "pre_animation": [
+          "v.sdt = math.min(q.delta_time, 0.1);",
+          "v.speed = math.min(q.modified_move_speed, 1);",
+          "v.sway = 1 - v.speed * 0.5;",
+          "v.air = math.lerp(v.air, (q.is_on_ground ? 0 : 1), 1 - math.exp(-12 * v.sdt));",
+          "v.pitch = math.lerp(v.pitch, (q.is_on_ground ? 0 : math.clamp(v.speed * 10 - q.vertical_speed * 3, -15, 15)), 1 - math.exp(-8 * v.sdt));",
+          "v.dead = q.is_alive ? 0 : v.dead + v.sdt;",
+          "v.dyaw = q.body_y_rotation - v.yaw_last;",
+          "v.dyaw = v.dyaw - 360 * math.round(v.dyaw / 360);",
+          "v.yaw_last = q.body_y_rotation;",
+          "v.bank = math.lerp(v.bank, (q.is_on_ground ? 0 : math.clamp(v.dyaw / math.max(v.sdt, 0.005) * 0.08, -20, 20)), 1 - math.exp(-6 * v.sdt));",
+          "v.look = math.lerp(v.look, (q.distance_from_camera < 8 ? (1) : 0), 1 - math.exp(-6 * v.sdt));"
+        ],
+        "animate": [
+          "root"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.vp.dragonfly"
+      ],
+      "spawn_egg": {
+        "texture": "5fs_br:dragonfly"
+      }
+    }
+  }
+}

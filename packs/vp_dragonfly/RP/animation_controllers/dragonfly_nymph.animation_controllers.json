@@ -1,0 +1,302 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.vp.dragonfly_nymph.root": {
+      "initial_state": "alive",
+      "states": {
+        "alive": {
+          "animations": [
+            "spawning",
+            "posture",
+            "look",
+            "flinch",
+            "blinking",
+            "fidget"
+          ],
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "dead": "!q.is_alive"
+            }
+          ]
+        },
+        "dead": {
+          "animations": [
+            "death",
+            "eyes_shut"
+          ],
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "alive": "q.is_alive"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.vp.dragonfly_nymph.blinking": {
+      "initial_state": "open",
+      "states": {
+        "open": {
+          "on_entry": [
+            "v.blink_wait = math.random(2, 6);"
+          ],
+          "transitions": [
+            {
+              "blink": "q.state_time > v.blink_wait"
+            }
+          ]
+        },
+        "blink": {
+          "animations": [
+            "blink"
+          ],
+          "transitions": [
+            {
+              "open": "q.any_animation_finished"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.vp.dragonfly_nymph.spawning": {
+      "initial_state": "pop",
+      "states": {
+        "pop": {
+          "animations": [
+            "spawn"
+          ],
+          "transitions": [
+            {
+              "done": "q.any_animation_finished"
+            }
+          ]
+        },
+        "done": {}
+      }
+    },
+    "controller.animation.vp.dragonfly_nymph.posture": {
+      "initial_state": "water_idle",
+      "states": {
+        "water_idle": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "swim": "q.is_in_water && q.modified_move_speed > 0.04"
+            },
+            {
+              "emerge": "!q.is_in_water && q.is_on_ground"
+            },
+            {
+              "drift": "!q.is_in_water && !q.is_on_ground"
+            }
+          ]
+        },
+        "swim": {
+          "animations": [
+            "swim"
+          ],
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "water_idle": "q.is_in_water && q.modified_move_speed <= 0.04"
+            },
+            {
+              "emerge": "!q.is_in_water && q.is_on_ground"
+            },
+            {
+              "drift": "!q.is_in_water && !q.is_on_ground"
+            }
+          ]
+        },
+        "emerge": {
+          "animations": [
+            "emerge"
+          ],
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "swim": "q.is_in_water"
+            },
+            {
+              "walk": "!q.is_in_water && q.is_on_ground && q.modified_move_speed > 0.04"
+            },
+            {
+              "drift": "!q.is_in_water && !q.is_on_ground"
+            }
+          ]
+        },
+        "walk": {
+          "animations": [
+            "walk"
+          ],
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "swim": "q.is_in_water"
+            },
+            {
+              "emerge": "!q.is_in_water && q.modified_move_speed <= 0.04"
+            },
+            {
+              "drift": "!q.is_in_water && !q.is_on_ground"
+            }
+          ]
+        },
+        "drift": {
+          "animations": [
+            "drift"
+          ],
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "swim": "q.is_in_water"
+            },
+            {
+              "emerge": "!q.is_in_water && q.is_on_ground"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.vp.dragonfly_nymph.fidget": {
+      "initial_state": "off",
+      "states": {
+        "off": {
+          "transitions": [
+            {
+              "idle_wait": "q.is_in_water && q.modified_move_speed <= 0.04"
+            }
+          ]
+        },
+        "idle_wait": {
+          "on_entry": [
+            "v.idle_pick = math.random_integer(0, 1);",
+            "v.idle_wait = math.random(2, 5);"
+          ],
+          "transitions": [
+            {
+              "off": "!q.is_in_water || q.modified_move_speed > 0.04"
+            },
+            {
+              "idle_0": "v.idle_pick == 0 && q.state_time > v.idle_wait"
+            },
+            {
+              "idle_1": "v.idle_pick == 1 && q.state_time > v.idle_wait"
+            }
+          ]
+        },
+        "idle_0": {
+          "animations": [
+            "idle_groom"
+          ],
+          "blend_transition": 0.24,
+          "transitions": [
+            {
+              "off": "!q.is_in_water || q.modified_move_speed > 0.04"
+            },
+            {
+              "idle_wait": "q.any_animation_finished"
+            }
+          ]
+        },
+        "idle_1": {
+          "animations": [
+            "idle_pulse"
+          ],
+          "blend_transition": 0.24,
+          "transitions": [
+            {
+              "off": "!q.is_in_water || q.modified_move_speed > 0.04"
+            },
+            {
+              "idle_wait": "q.any_animation_finished"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.vp.dragonfly_nymph.flinch": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "hurt": "q.hurt_time > 0 && q.is_alive"
+            }
+          ]
+        },
+        "hurt": {
+          "animations": [
+            "hurt",
+            "blink"
+          ],
+          "transitions": [
+            {
+              "default": "q.state_time >= 0.5 && q.hurt_time <= 0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

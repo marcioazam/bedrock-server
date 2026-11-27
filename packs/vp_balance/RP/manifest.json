@@ -1,0 +1,18 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "vp_balance RP",
+    "description": "Hard+ messages in English and Portuguese.",
+    "uuid": "67962c9f-88b0-4e39-bb43-b446ddcb3106",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 26, 60]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "description": "vp_balance RP",
+      "uuid": "03231579-da57-4688-9dec-642c79d36cdc",
+      "version": [1, 0, 0]
+    }
+  ]
+}

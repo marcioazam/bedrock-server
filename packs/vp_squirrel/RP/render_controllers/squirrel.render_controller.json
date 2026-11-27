@@ -1,0 +1,25 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.vp.squirrel": {
+      "arrays": {
+        "textures": {
+          "Array.skins": [
+            "Texture.ash",
+            "Texture.copper",
+            "Texture.frost"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.skins[math.clamp(query.variant, 0, 2)]"
+      ]
+    }
+  }
+}

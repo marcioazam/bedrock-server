@@ -1,0 +1,40 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "vp:dragonfly_egg_mass",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/vp/dragonfly/egg_mass"
+      },
+      "geometry": {
+        "default": "geometry.vp.dragonfly_egg_mass"
+      },
+      "animations": {
+        "idle": "animation.vp.dragonfly_egg_mass.idle",
+        "move": "animation.vp.dragonfly_egg_mass.move",
+        "hurt": "animation.vp.dragonfly_egg_mass.hurt",
+        "death": "animation.vp.dragonfly_egg_mass.death",
+        "root": "controller.animation.vp.dragonfly_egg_mass.root"
+      },
+      "scripts": {
+        "initialize": [
+          "v.water = 1;",
+          "v.sdt = 0.0167;"
+        ],
+        "pre_animation": [
+          "v.sdt = math.min(q.delta_time, 0.1);",
+          "v.water = v.water + ((q.is_in_water ? 1 : 0) - v.water) * (1 - math.exp(-6 * v.sdt));"
+        ],
+        "animate": [
+          "root"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.vp.dragonfly_egg_mass"
+      ]
+    }
+  }
+}

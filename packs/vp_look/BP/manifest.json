@@ -1,0 +1,51 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "vp_look BP",
+    "description": "Names whatever you look at: block, mob or item.",
+    "uuid": "cda4f0c5-3c45-479b-a0f9-7f3634c5bb4d",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "description": "vp_look BP",
+      "uuid": "7ae2be4e-dd4a-4f5c-ad27-123bc03bb083",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "fb60e066-d5a9-4b6e-96d0-18751f088434",
+      "entry": "scripts/main.js",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "uuid": "a8da61f2-e26a-4d68-8fbf-438954c2c0e2",
+      "version": [1, 0, 0]
+    }
+  ]
+}

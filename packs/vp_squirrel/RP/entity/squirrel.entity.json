@@ -1,0 +1,76 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "5fs_br:squirrel",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "ash": "textures/entity/vp/squirrel/ash_squirrel",
+        "copper": "textures/entity/vp/squirrel/copper_squirrel",
+        "frost": "textures/entity/vp/squirrel/frost_squirrel"
+      },
+      "geometry": {
+        "default": "geometry.vp.squirrel"
+      },
+      "animations": {
+        "idle": "animation.vp.squirrel.idle",
+        "idle_groom": "animation.vp.squirrel.idle_groom",
+        "idle_alert": "animation.vp.squirrel.idle_alert",
+        "idle_flick": "animation.vp.squirrel.idle_flick",
+        "idle_sniff": "animation.vp.squirrel.idle_sniff",
+        "walk": "animation.vp.squirrel.walk",
+        "run": "animation.vp.squirrel.run",
+        "takeoff": "animation.vp.squirrel.takeoff",
+        "air": "animation.vp.squirrel.air",
+        "land": "animation.vp.squirrel.land",
+        "climb": "animation.vp.squirrel.climb",
+        "climb_down": "animation.vp.squirrel.climb_down",
+        "gnaw": "animation.vp.squirrel.gnaw",
+        "swim": "animation.vp.squirrel.swim",
+        "eat": "animation.vp.squirrel.eat",
+        "hurt": "animation.vp.squirrel.hurt",
+        "death": "animation.vp.squirrel.death",
+        "blink": "animation.vp.squirrel.blink",
+        "eyes_shut": "animation.vp.squirrel.eyes_shut",
+        "look": "animation.vp.squirrel.look",
+        "root": "controller.animation.vp.squirrel.root",
+        "posture": "controller.animation.vp.squirrel.posture",
+        "flinch": "controller.animation.vp.squirrel.flinch",
+        "blinking": "controller.animation.vp.squirrel.blinking",
+        "fidget": "controller.animation.vp.squirrel.fidget"
+      },
+      "scripts": {
+        "initialize": [
+          "v.pitch = 0;",
+          "v.blink_wait = 3;",
+          "v.bank = 0;",
+          "v.look = 0;",
+          "v.viewer_yaw = 0;",
+          "v.yaw_last = q.body_y_rotation;",
+          "v.tail_lod = 1;",
+          "v.near = 1;"
+        ],
+        "pre_animation": [
+          "v.sdt = math.min(q.delta_time, 0.1);",
+          "v.pitch = v.pitch + ((q.is_on_ground ? 0 : math.clamp(-10 * q.vertical_speed, -24, 24)) - v.pitch) * (1 - math.exp(-9 * v.sdt));",
+          "v.dyaw = q.body_y_rotation - v.yaw_last;",
+          "v.dyaw = v.dyaw - 360 * math.round(v.dyaw / 360);",
+          "v.yaw_last = q.body_y_rotation;",
+          "v.bank = v.bank + ((q.is_on_ground ? 0 : math.clamp(v.dyaw / math.max(v.sdt, 0.005) * 0.06, -15, 15)) - v.bank) * (1 - math.exp(-6 * v.sdt));",
+          "v.look = v.look + ((q.distance_from_camera < 8 ? (q.is_on_ground && !q.is_wall_climbing && !q.is_in_water && !q.is_eating && q.hurt_time <= 0 && q.modified_move_speed <= 0.3) : 0) - v.look) * (1 - math.exp(-9 * v.sdt));",
+          "v.viewer_yaw = v.viewer_yaw + ((v.look > 0.01 ? math.clamp(q.rotation_to_camera(1) * 0.4, -16, 16) : 0) - v.viewer_yaw) * (1 - math.exp(-6 * v.sdt));",
+          "v.near = q.distance_from_camera < 8 ? 1 : 0;",
+          "v.tail_lod = v.tail_lod + ((q.distance_from_camera < 8 ? 1 : (q.distance_from_camera < 16 ? 0.5 : 0)) - v.tail_lod) * (1 - math.exp(-4 * v.sdt));"
+        ],
+        "animate": [
+          "root"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.vp.squirrel"
+      ]
+    }
+  }
+}

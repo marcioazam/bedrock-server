@@ -1,0 +1,89 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "vp:dragonfly_egg_mass",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:is_hidden_when_invisible": {},
+      "minecraft:type_family": {
+        "family": [ "mob", "dragonfly_egg_mass", "passive" ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.35,
+        "height": 0.2
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0,
+        "breathes_water": true,
+        "breathes_air": false,
+        "generates_bubbles": false
+      },
+      "minecraft:health": {
+        "value": 2,
+        "max": 2
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:physics": {
+        "has_gravity": true
+      },
+      "minecraft:pushable": {},
+      "minecraft:movement": {
+        "value": 0.0
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.0
+      },
+      "minecraft:navigation.walk": {
+        "can_sink": true,
+        "avoid_water": false,
+        "avoid_damage_blocks": true
+      },
+      "minecraft:despawn": {
+        "despawn_from_distance": {}
+      },
+      "minecraft:ageable": {
+        "duration": 900,
+        "grow_up": {
+          "event": "vp:hatch",
+          "target": "self"
+        }
+      }
+    },
+    "events": {
+      "vp:hatch": {
+        "add": {
+          "component_groups": [ "vp:hatching" ]
+        }
+      }
+    },
+    "component_groups": {
+      "vp:hatching": {
+        "minecraft:transformation": {
+          "into": "vp:dragonfly_nymph",
+          "delay": {
+            "value": 10,
+            "block_types": [ "minecraft:waterlily" ],
+            "block_radius": 3,
+            "block_max": 4,
+            "block_assist_chance": 1.0,
+            "block_chance": 0.35
+          },
+          "transformation_sound": "convert_to_frog"
+        }
+      }
+    }
+  }
+}

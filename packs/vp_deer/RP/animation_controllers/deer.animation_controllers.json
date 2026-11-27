@@ -1,0 +1,430 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.vp.deer.root": {
+      "initial_state": "alive",
+      "states": {
+        "alive": {
+          "animations": [
+            "posture",
+            "looking",
+            "gaze_layer",
+            "flinch",
+            "blinking",
+            "fidget",
+            "combat"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.0333": 0.5787,
+            "0.0667": 0.2963,
+            "0.1": 0.125,
+            "0.1333": 0.037,
+            "0.1667": 0.0046,
+            "0.2": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "dead": "!q.is_alive"
+            }
+          ]
+        },
+        "dead": {
+          "animations": [
+            "death",
+            "eyes_shut"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.0333": 0.5787,
+            "0.0667": 0.2963,
+            "0.1": 0.125,
+            "0.1333": 0.037,
+            "0.1667": 0.0046,
+            "0.2": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "alive": "q.is_alive"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.vp.deer.posture": {
+      "initial_state": "ground",
+      "states": {
+        "ground": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.04": 0.5787,
+            "0.08": 0.2963,
+            "0.12": 0.125,
+            "0.16": 0.037,
+            "0.2": 0.0046,
+            "0.24": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "sleep": "q.is_sheared"
+            },
+            {
+              "air": "!q.is_on_ground"
+            },
+            {
+              "walk": "q.modified_move_speed >= 0.025"
+            }
+          ]
+        },
+        "sleep": {
+          "animations": [
+            "sleep"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.04": 0.5787,
+            "0.08": 0.2963,
+            "0.12": 0.125,
+            "0.16": 0.037,
+            "0.2": 0.0046,
+            "0.24": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "walk": "!q.is_sheared && q.modified_move_speed >= 0.025"
+            },
+            {
+              "ground": "!q.is_sheared"
+            }
+          ]
+        },
+        "walk": {
+          "animations": [
+            "walk"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.0333": 0.5787,
+            "0.0667": 0.2963,
+            "0.1": 0.125,
+            "0.1333": 0.037,
+            "0.1667": 0.0046,
+            "0.2": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "air": "!q.is_on_ground"
+            },
+            {
+              "trot": "q.modified_move_speed >= 0.41"
+            },
+            {
+              "ground": "q.modified_move_speed < 0.025"
+            }
+          ]
+        },
+        "trot": {
+          "animations": [
+            "trot"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.0333": 0.5787,
+            "0.0667": 0.2963,
+            "0.1": 0.125,
+            "0.1333": 0.037,
+            "0.1667": 0.0046,
+            "0.2": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "air": "!q.is_on_ground"
+            },
+            {
+              "run": "q.modified_move_speed >= 0.8"
+            },
+            {
+              "walk": "q.modified_move_speed < 0.27"
+            }
+          ]
+        },
+        "run": {
+          "animations": [
+            "run"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.0333": 0.5787,
+            "0.0667": 0.2963,
+            "0.1": 0.125,
+            "0.1333": 0.037,
+            "0.1667": 0.0046,
+            "0.2": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "air": "!q.is_on_ground"
+            },
+            {
+              "trot": "q.modified_move_speed < 0.48"
+            }
+          ]
+        },
+        "air": {
+          "animations": [
+            "air"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.0367": 0.5787,
+            "0.0733": 0.2963,
+            "0.11": 0.125,
+            "0.1467": 0.037,
+            "0.1833": 0.0046,
+            "0.22": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "land": "q.is_on_ground"
+            }
+          ]
+        },
+        "land": {
+          "animations": [
+            "land",
+            "idle"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.0367": 0.5787,
+            "0.0733": 0.2963,
+            "0.11": 0.125,
+            "0.1467": 0.037,
+            "0.1833": 0.0046,
+            "0.22": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "air": "!q.is_on_ground"
+            },
+            {
+              "ground": "q.state_time >= 0.45"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.vp.deer.looking": {
+      "initial_state": "on",
+      "states": {
+        "on": {
+          "animations": [
+            "look"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.04": 0.5787,
+            "0.08": 0.2963,
+            "0.12": 0.125,
+            "0.16": 0.037,
+            "0.2": 0.0046,
+            "0.24": 0.0
+          },
+          "blend_via_shortest_path": true
+        }
+      }
+    },
+    "controller.animation.vp.deer.gaze_layer": {
+      "initial_state": "on",
+      "states": {
+        "on": {
+          "animations": [
+            "gaze"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.04": 0.5787,
+            "0.08": 0.2963,
+            "0.12": 0.125,
+            "0.16": 0.037,
+            "0.2": 0.0046,
+            "0.24": 0.0
+          },
+          "blend_via_shortest_path": true
+        }
+      }
+    },
+    "controller.animation.vp.deer.blinking": {
+      "initial_state": "open",
+      "states": {
+        "open": {
+          "on_entry": [
+            "v.blink_wait = math.random(2, 6);"
+          ],
+          "transitions": [
+            {
+              "blink": "q.state_time > v.blink_wait"
+            }
+          ]
+        },
+        "blink": {
+          "animations": [
+            "blink"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.0167": 0.5787,
+            "0.0333": 0.2963,
+            "0.05": 0.125,
+            "0.0667": 0.037,
+            "0.0833": 0.0046,
+            "0.1": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "open": "q.any_animation_finished"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.vp.deer.flinch": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "hurt": "q.hurt_time > 0 && q.is_alive"
+            }
+          ]
+        },
+        "hurt": {
+          "animations": [
+            "hurt",
+            "blink"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.025": 0.5787,
+            "0.05": 0.2963,
+            "0.075": 0.125,
+            "0.1": 0.037,
+            "0.125": 0.0046,
+            "0.15": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "default": "q.state_time >= 0.5 && q.hurt_time <= 0"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.vp.deer.combat": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "attack": "q.is_delayed_attacking && q.is_alive"
+            }
+          ]
+        },
+        "attack": {
+          "animations": [
+            "attack"
+          ],
+          "blend_transition": {
+            "0": 1.0,
+            "0.0333": 0.5787,
+            "0.0667": 0.2963,
+            "0.1": 0.125,
+            "0.1333": 0.037,
+            "0.1667": 0.0046,
+            "0.2": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "default": "q.any_animation_finished"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.vp.deer.fidget": {
+      "initial_state": "off",
+      "states": {
+        "off": {
+          "transitions": [
+            {
+              "idle_wait": "q.is_on_ground && !q.is_sheared && q.modified_move_speed <= 0.025"
+            }
+          ]
+        },
+        "idle_wait": {
+          "on_entry": [
+            "v.idle_pick = math.random_integer(0, 1);",
+            "v.idle_wait = math.random(1.5, 6);"
+          ],
+          "transitions": [
+            {
+              "off": "!q.is_on_ground || q.is_sheared || q.modified_move_speed > 0.025"
+            },
+            {
+              "idle_1": "q.timer_flag_1"
+            },
+            {
+              "idle_0": "v.idle_pick == 0 && q.state_time > v.idle_wait"
+            },
+            {
+              "idle_1": "v.idle_pick == 1 && q.state_time > v.idle_wait"
+            }
+          ]
+        },
+        "idle_0": {
+          "animations": [
+            "idle_graze"
+          ],
+          "blend_transition": 0.24,
+          "transitions": [
+            {
+              "off": "!q.is_on_ground || q.is_sheared || q.modified_move_speed > 0.025"
+            },
+            {
+              "idle_wait": "q.any_animation_finished"
+            }
+          ]
+        },
+        "idle_1": {
+          "animations": [
+            "idle_alert"
+          ],
+          "blend_transition": 0.24,
+          "transitions": [
+            {
+              "off": "!q.is_on_ground || q.is_sheared || q.modified_move_speed > 0.025"
+            },
+            {
+              "idle_wait": "q.any_animation_finished"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

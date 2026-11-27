@@ -1,0 +1,47 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "vp_dragonfly BP",
+    "description": "Dragonfly nursery lifecycle: nymph, egg mass and emergence (vp-significado).",
+    "uuid": "7d3f1a2e-9b4c-4e5a-8f6d-2c1a0e9b7d55",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "description": "vp_dragonfly BP",
+      "uuid": "3a8e5c71-6d2f-4b19-9e7a-1c4d8f2a6b33",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "82565419-806f-4d7d-a59c-f58a91e641fe",
+      "entry": "scripts/main.js",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    }
+  ]
+}

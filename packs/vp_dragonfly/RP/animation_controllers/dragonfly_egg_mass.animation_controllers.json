@@ -1,0 +1,75 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.vp.dragonfly_egg_mass.root": {
+      "initial_state": "settled",
+      "states": {
+        "settled": {
+          "animations": [
+            "idle",
+            "move"
+          ],
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "hurt": "q.hurt_time > 0"
+            },
+            {
+              "dead": "!q.is_alive"
+            }
+          ]
+        },
+        "hurt": {
+          "animations": [
+            "hurt",
+            "move"
+          ],
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "settled": "q.state_time >= 0.35 && q.hurt_time <= 0"
+            },
+            {
+              "dead": "!q.is_alive"
+            }
+          ]
+        },
+        "dead": {
+          "animations": [
+            "death"
+          ],
+          "blend_transition": {
+            "0.000": 1.0,
+            "0.030": 0.512,
+            "0.060": 0.216,
+            "0.090": 0.064,
+            "0.120": 0.008,
+            "0.150": 0.0
+          },
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "settled": "q.is_alive"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
