@@ -1,0 +1,83 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "5fs_br:deer",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/vp/deer/adult",
+        "fawn": "textures/entity/vp/deer/fawn"
+      },
+      "geometry": {
+        "default": "geometry.vp.deer",
+        "baby": "geometry.vp.deer.fawn"
+      },
+      "animations": {
+        "idle": "animation.vp.deer.idle",
+        "idle_graze": "animation.vp.deer.idle_graze",
+        "idle_alert": "animation.vp.deer.idle_alert",
+        "walk": "animation.vp.deer.walk",
+        "trot": "animation.vp.deer.trot",
+        "run": "animation.vp.deer.run",
+        "air": "animation.vp.deer.air",
+        "land": "animation.vp.deer.land",
+        "sleep": "animation.vp.deer.sleep",
+        "attack": "animation.vp.deer.attack",
+        "hurt": "animation.vp.deer.hurt",
+        "death": "animation.vp.deer.death",
+        "blink": "animation.vp.deer.blink",
+        "eyes_shut": "animation.vp.deer.eyes_shut",
+        "look": "animation.vp.deer.look",
+        "gaze": "animation.vp.deer.gaze",
+        "root": "controller.animation.vp.deer.root",
+        "posture": "controller.animation.vp.deer.posture",
+        "looking": "controller.animation.vp.deer.looking",
+        "gaze_layer": "controller.animation.vp.deer.gaze_layer",
+        "blinking": "controller.animation.vp.deer.blinking",
+        "flinch": "controller.animation.vp.deer.flinch",
+        "combat": "controller.animation.vp.deer.combat",
+        "fidget": "controller.animation.vp.deer.fidget"
+      },
+      "scripts": {
+        "initialize": [
+          "v.sdt = 0.0167;",
+          "v.speed = 0;",
+          "v.turn = 0;",
+          "v.dyaw = 0;",
+          "v.yaw_last = q.body_y_rotation;",
+          "v.fall_pitch = 0;",
+          "v.near = 0;",
+          "v.gaze = 0;",
+          "v.camera_yaw = 0;",
+          "v.blink_wait = 3;",
+          "v.dead = 0;"
+        ],
+        "pre_animation": [
+          "v.sdt = math.min(q.delta_time, 0.1);",
+          "v.speed = math.lerp(v.speed, (math.min(q.modified_move_speed, 1)), 1 - math.exp(-4.5 * v.sdt));",
+          "v.dyaw = q.body_y_rotation - v.yaw_last;",
+          "v.dyaw = v.dyaw - 360 * math.round(v.dyaw / 360);",
+          "v.yaw_last = q.body_y_rotation;",
+          "v.turn = math.lerp(v.turn, (math.clamp(v.dyaw / math.max(v.sdt, 0.005) * 0.025, -10, 10)), 1 - math.exp(-4.5 * v.sdt));",
+          "v.fall_pitch = math.lerp(v.fall_pitch, (q.is_on_ground ? 0 : math.clamp(q.vertical_speed * -5, -22, 18)), 1 - math.exp(-6 * v.sdt));",
+          "v.near = math.lerp(v.near, (q.distance_from_camera < 8 ? (1) : 0), 1 - math.exp(-6 * v.sdt));",
+          "v.camera_yaw = q.rotation_to_camera(1) - q.body_y_rotation;",
+          "v.camera_yaw = v.camera_yaw - 360 * math.round(v.camera_yaw / 360);",
+          "v.gaze = math.lerp(v.gaze, (math.cos(v.camera_yaw) * -0.32 * v.near), 1 - math.exp(-10 * v.sdt));",
+          "v.dead = q.is_alive ? 0 : v.dead + v.sdt;"
+        ],
+        "animate": [
+          "root"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.vp.deer"
+      ],
+      "spawn_egg": {
+        "texture": "5fs_br:deer"
+      }
+    }
+  }
+}

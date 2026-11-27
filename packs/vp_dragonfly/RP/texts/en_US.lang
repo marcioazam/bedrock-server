@@ -1,0 +1,6 @@
+pack.name=Dragonfly figure
+pack.description=Refined dragonfly model, textures and flight motion. Sits above Bedrock Reimagined.
+entity.vp:dragonfly_nymph.name=Dragonfly Nymph
+item.spawn_egg.entity.vp:dragonfly_nymph.name=Dragonfly Nymph Spawn Egg
+entity.vp:dragonfly_egg_mass.name=Dragonfly Egg Mass
+item.spawn_egg.entity.vp:dragonfly_egg_mass.name=Dragonfly Egg Mass Spawn Egg

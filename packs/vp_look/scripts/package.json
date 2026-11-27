@@ -1,0 +1,16 @@
+{
+  "name": "vp_look",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/main.ts --bundle --format=esm --external:@minecraft/server --outfile=../BP/scripts/main.js",
+    "watch": "esbuild src/main.ts --bundle --format=esm --external:@minecraft/server --outfile=../BP/scripts/main.js --watch"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "@minecraft/server": "2.11.0",
+    "typescript": "^5.8.0"
+  },
+  "dependencies": {}
+}

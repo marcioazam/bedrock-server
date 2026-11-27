@@ -1,0 +1,14 @@
+{
+  "name": "vp_squirrel",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/main.ts --bundle --format=esm --external:@minecraft/server --outfile=../BP/scripts/main.js"
+  },
+  "devDependencies": {
+    "@minecraft/server": "2.11.0",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2"
+  }
+}

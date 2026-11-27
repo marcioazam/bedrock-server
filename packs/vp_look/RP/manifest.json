@@ -1,0 +1,30 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "vp_look RP",
+    "description": "Small look-at line for blocks, mobs and items.",
+    "uuid": "a8da61f2-e26a-4d68-8fbf-438954c2c0e2",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "description": "vp_look RP",
+      "uuid": "cd924b4b-8f53-47b8-9c98-4c28f0f947e1",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}

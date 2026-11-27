@@ -1,0 +1,29 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "vp_balance BP",
+    "description": "Hard+ curve: Brutal locked, staged damage, per-player exception.",
+    "uuid": "0bb3341b-1fb8-46b3-838e-0d508724a848",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 26, 60]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "description": "vp_balance BP",
+      "uuid": "2a555255-8d12-450f-9fa1-a69118006ee2",
+      "version": [1, 0, 0]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "8fcf74e9-1f2c-4adf-820d-45f2779a65f7",
+      "entry": "scripts/main.js",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    { "module_name": "@minecraft/server", "version": "2.11.0" },
+    { "uuid": "67962c9f-88b0-4e39-bb43-b446ddcb3106", "version": [1, 0, 0] }
+  ]
+}

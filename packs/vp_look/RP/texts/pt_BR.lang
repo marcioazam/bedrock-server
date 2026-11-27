@@ -1,0 +1,10 @@
+pack.name=Olhar
+vp.look.tool.shears=§7Ferramenta: §aTesoura
+vp.look.tool.sword=§7Ferramenta: §aEspada
+vp.look.tool.axe=§7Ferramenta: §aMachado
+vp.look.tool.pickaxe=§7Ferramenta: §aPicareta
+vp.look.tool.shovel=§7Ferramenta: §aPá
+vp.look.tool.hoe=§7Ferramenta: §aEnxada
+vp.look.health=§7Vida: §f%s§7/§f%s
+vp.look.count=§7Quantidade: §f%s
+vp.look.baby=§7Filhote

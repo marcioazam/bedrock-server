@@ -1,0 +1,6 @@
+pack.name=Figura da libélula
+pack.description=Modelo, texturas e movimento de voo refinados da libélula. Fica acima do Bedrock Reimagined.
+entity.vp:dragonfly_nymph.name=Ninfa de Libélula
+item.spawn_egg.entity.vp:dragonfly_nymph.name=Ovo Gerador de Ninfa de Libélula
+entity.vp:dragonfly_egg_mass.name=Massa de Ovos de Libélula
+item.spawn_egg.entity.vp:dragonfly_egg_mass.name=Ovo Gerador de Massa de Ovos de Libélula

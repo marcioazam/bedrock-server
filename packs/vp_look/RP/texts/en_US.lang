@@ -1,0 +1,10 @@
+pack.name=Look
+vp.look.tool.shears=§7Tool: §aShears
+vp.look.tool.sword=§7Tool: §aSword
+vp.look.tool.axe=§7Tool: §aAxe
+vp.look.tool.pickaxe=§7Tool: §aPickaxe
+vp.look.tool.shovel=§7Tool: §aShovel
+vp.look.tool.hoe=§7Tool: §aHoe
+vp.look.health=§7Health: §f%s§7/§f%s
+vp.look.count=§7Amount: §f%s
+vp.look.baby=§7Baby

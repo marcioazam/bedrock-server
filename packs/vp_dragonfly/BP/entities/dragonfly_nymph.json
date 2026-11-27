@@ -1,0 +1,167 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "vp:dragonfly_nymph",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "vp:seek_shore": {
+        "minecraft:behavior.move_to_land": {
+          "priority": 2,
+          "search_range": 12,
+          "search_height": 4,
+          "goal_radius": 1.0,
+          "speed_multiplier": 1.0
+        },
+        "minecraft:environment_sensor": {
+          "triggers": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "in_water",
+                    "subject": "self",
+                    "operator": "==",
+                    "value": false
+                  },
+                  {
+                    "test": "on_ground",
+                    "subject": "self",
+                    "operator": "==",
+                    "value": true
+                  },
+                  {
+                    "test": "hourly_clock_time",
+                    "operator": "<",
+                    "value": 12000
+                  }
+                ]
+              },
+              "event": "vp:begin_emergence"
+            }
+          ]
+        }
+      },
+      "vp:emerging": {
+        "minecraft:movement": {
+          "value": 0.0
+        },
+        "minecraft:transformation": {
+          "into": "5fs_br:dragonfly",
+          "delay": {
+            "value": 25
+          },
+          "transformation_sound": "random.splash",
+          "begin_transform_sound": "random.splash"
+        }
+      }
+    },
+    "components": {
+      "minecraft:is_hidden_when_invisible": {},
+      "minecraft:type_family": {
+        "family": [
+          "mob",
+          "dragonfly_nymph",
+          "passive"
+        ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.5,
+        "height": 0.3
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0,
+        "breathes_water": true,
+        "breathes_air": true,
+        "generates_bubbles": false
+      },
+      "minecraft:nameable": {},
+      "minecraft:health": {
+        "value": 3,
+        "max": 3
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": {
+              "test": "in_lava",
+              "subject": "self",
+              "operator": "==",
+              "value": true
+            },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:navigation.generic": {
+        "can_path_over_water": true,
+        "can_swim": true,
+        "can_walk": true,
+        "can_sink": false,
+        "avoid_damage_blocks": true
+      },
+      "minecraft:movement.sway": {
+        "sway_amplitude": 0.0
+      },
+      "minecraft:movement": {
+        "value": 0.12
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.12
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {},
+      "minecraft:despawn": {
+        "despawn_from_distance": {}
+      },
+      "minecraft:is_baby": {},
+      "minecraft:ageable": {
+        "duration": 1200,
+        "grow_up": {
+          "event": "vp:seek_shore",
+          "target": "self"
+        }
+      },
+      "minecraft:behavior.panic": {
+        "priority": 1,
+        "speed_multiplier": 1.6
+      },
+      "minecraft:behavior.random_swim": {
+        "priority": 8,
+        "interval": 100,
+        "speed_multiplier": 1.0
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 9,
+        "target_distance": 5.0,
+        "probability": 0.02
+      }
+    },
+    "events": {
+      "vp:seek_shore": {
+        "add": {
+          "component_groups": [
+            "vp:seek_shore"
+          ]
+        }
+      },
+      "vp:begin_emergence": {
+        "remove": {
+          "component_groups": [
+            "vp:seek_shore"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "vp:emerging"
+          ]
+        }
+      }
+    }
+  }
+}
